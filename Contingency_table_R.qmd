@@ -1,24 +1,32 @@
 ---
 title: "Contingency_table_R"
-format: html
+author: "Kristina Bratkova"
+format: 
+  html:
+    toc: true
+    toc-location: left
+    toc-depth: 4
+    code-tools: true
+    code-fold: true
+    code-link: true
 editor: visual
+execute: 
+  warning: false
+  message: false
 ---
 
-## Examples of contingency tables
+# Examples of contingency tables
 
-This document contains examples of contingency tables with each tile containing number (average,count,sum). The data consists of randomized rows of 12900 responses of household survey conduct for the Urban Transport Modelling for Sustainable Well-Being in Hanoi project. Since the rows of each column are randomized, the below tables demonstrate a visualization technique but the values of each tile are random hence do not represent the findings of the survey. 
+This document contains examples of contingency tables with each tile containing number (average, count, sum). The data consists of randomized rows of 12900 responses of household survey conduct for the Urban Transport Modelling for Sustainable Well-Being in Hanoi project. Since the rows of each column are randomized, the below tables demonstrate a visualization technique but the values of each tile are random hence do not represent the findings of the survey.
 
 ## Load libraries and data
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
 
 ```{r}
 library(here)
 library(tidyverse)
 # load data
-library(tidyverse)
 # Data cleaning function
-library(here)
 #check here() file path, which should be Contingency_table_R directory
 source(here("clean_data_anon.R"))
 source(here("wrangledata_functions.R"))
@@ -33,7 +41,7 @@ df<- read_csv(here("anon_survey1.csv")) %>%
   ban_numeric()
 ```
 
-## Plot 1: Average opinion on the ban 
+## Plot 1: Average opinion on the ban
 
 First example shows average value of selected numerical variable for categorical variables on x and y-axis.
 
@@ -63,7 +71,7 @@ theme_minimal() +
        guides(fill=guide_legend(title="Average Opinion")) 
 ```
 
-The above table shows average opinion of given tile subgroup. 
+The above table shows average opinion of given tile subgroup.
 
 ## Plot 2: Occupation and type of occupation demographic group counts
 
@@ -95,5 +103,3 @@ theme_minimal() +
 ```
 
 ## Plot 3: Cumulative sum of values (number of motorbikes) for a given subgroup (occupation,type of occupation)
-
-
