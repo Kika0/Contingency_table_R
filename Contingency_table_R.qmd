@@ -1,0 +1,99 @@
+---
+title: "Contingency_table_R"
+format: html
+editor: visual
+---
+
+## Examples of contingency tables
+
+This document contains examples of contingency tables with each tile containing number (average,count,sum). The data consists of randomized rows of 12900 responses of household survey conduct for the Urban Transport Modelling for Sustainable Well-Being in Hanoi project. Since the rows of each column are randomized, the below tables demonstrate a visualization technique but the values of each tile are random hence do not represent the findings of the survey. 
+
+## Load libraries and data
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+library(here)
+library(tidyverse)
+# load data
+library(tidyverse)
+# Data cleaning function
+library(here)
+#check here() file path, which should be Contingency_table_R directory
+source(here("clean_data_anon.R"))
+source(here("wrangledata_functions.R"))
+# load data
+# df<- read_csv(here("..","data-not-synced","anon_survey1.csv")) %>% 
+# new data
+df<- read_csv(here("anon_survey1.csv")) %>% 
+  # Clean data
+  data_clean() %>% 
+  # add col for numeric opinion on the ban and create ordered factors 
+  #for age and number of veh owned
+  ban_numeric()
+```
+
+## Plot 1: Average opinion on the ban 
+
+First example shows average value of selected numerical variable for categorical variables on x and y-axis.
+
+```{r}
+# do contingency table of opinion on the ban for different age groups and occupations
+df %>% group_by(occup, age) %>% 
+  summarise(n=round(sum(opinion_ban1)/n(),2)) %>%
+  ggplot(aes(x = occup, y = age, fill = n ))  +
+  geom_tile(
+    #aes(sum(df$opinion_ban1)) ,
+    color = "white") +
+  scale_fill_gradient2(high = "olivedrab", low = "tomato",
+                       mid="lightyellow",midpoint = 0.5,
+                       space = "Lab", name="count"
+                       ,limits=c(0,1)) +
+  # make sure x and y have the same scaling
+  coord_fixed() +
+  # add the values to the tiles, using row and name as coordinates 
+  geom_text(aes(occup,age,label=n), color = "black", size = 4) +
+theme_minimal() +
+       # adjust text direction on x-axis 
+       theme(axis.text.x = element_text(angle = 45, vjust = 1,hjust = 1),
+             text = element_text(size=15),
+       ) +
+       # remove the axis labels by making them blank
+       xlab("Occupation") +ylab("Age") + 
+       guides(fill=guide_legend(title="Average Opinion")) 
+```
+
+The above table shows average opinion of given tile subgroup. 
+
+## Plot 2: Occupation and type of occupation demographic group counts
+
+For example, we could examine the trip frequency and purpose of the trip and their link to average opinion:
+
+```{r}
+# do contingency table of opinion on the ban
+df %>% group_by(freqmon1, age) %>% 
+  summarise(n=round(sum(opinion_ban1)/n(),2)) %>%
+  ggplot(aes(x = freqmon1, y = age, fill = n ))  +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(high = "olivedrab", low = "tomato",
+                       mid="lightyellow",midpoint = 0.5,
+                       space = "Lab", name="count"
+                       ,limits=c(0,1)) +
+  # make sure x and y have the same scaling
+  coord_fixed() +
+  # add the values to the tiles, using row and name as coordinates 
+  geom_text(aes(freqmon1,age,label=n), color = "black", size = 4) +
+theme_minimal() +
+       # adjust text direction on x-axis 
+       theme(axis.text.x = element_text(angle = 45, vjust = 1,hjust = 1),
+             text = element_text(size=15),
+       ) +
+       # remove the axis labels by making them blank
+       ylab("Age") +xlab("Trip frequency per month") + 
+       guides(fill=guide_legend(title="Average Opinion"))
+
+```
+
+## Plot 3: Cumulative sum of values (number of motorbikes) for a given subgroup (occupation,type of occupation)
+
+
