@@ -21,7 +21,6 @@ This document contains examples of contingency tables with each tile containing 
 
 ## Load libraries and data
 
-
 ```{r}
 library(here)
 library(tidyverse)
