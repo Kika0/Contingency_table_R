@@ -15,13 +15,11 @@ execute:
   message: false
 ---
 
-# Examples of contingency tables
-
-This document contains examples of contingency tables with each tile containing a number (average, count, sum). The data consists of randomized rows of 12900 responses of household survey conducted for the Urban Transport Modelling for Sustainable Well-Being in Hanoi project. Since the rows of each column are randomized, the below tables demonstrate a visualization technique but not the findings of the survey.
+# Contingency_table_R
 
 ## Load libraries and data
 
-```{r}
+```{r,message=FALSE}
 library(here)
 library(tidyverse)
 # load data
@@ -42,7 +40,7 @@ df<- read_csv(here("anon_survey1.csv")) %>%
 
 ## Plot 1: Average opinion on the ban
 
-First example shows average value of selected numerical variable for categorical variables on x and y-axis. The opinion on the motorbike ban was recoded so that "strongagree"="1", "agree"="0.75", "neutral"="0.5",     "disagree"="0.25" and "strongdisagree"="0".
+First example shows average value of selected numerical variable for categorical variables on x and y-axis. The opinion on the motorbike ban was recoded so that "strongagree"="1", "agree"="0.75", "neutral"="0.5", "disagree"="0.25" and "strongdisagree"="0".
 
 ```{r}
 # do contingency table of opinion on the ban for different age groups and occupations
@@ -113,7 +111,7 @@ df %>% group_by(occup, ft_pt) %>%
   # make sure x and y have the same scaling
   coord_fixed() +
   # add the values to the tiles, using row and name as coordinates 
-  geom_text(aes(occup,ft_pt,label=n), color = "black", size = 4) +
+  geom_text(aes(occup,ft_pt,label=n), color = "black", size = 3) +
 theme_minimal() +
        # adjust text direction on x-axis 
        theme(axis.text.x = element_text(angle = 45, vjust = 1,hjust = 1),
@@ -130,7 +128,7 @@ The household survey contains a question about number of motorbikes owned rangin
 ```{r}
 # do contingency table of opinion on the ban for different age groups and occupations
 df %>% group_by(occup, ft_pt) %>% 
-  summarise(n=n()) %>%
+  summarise(n=round(sum(own_motob),1)) %>%
   ggplot(aes(x = occup, y = ft_pt, fill = n ))  +
   geom_tile(color = "white") +
   scale_fill_viridis_c(alpha=0.7) +
@@ -141,7 +139,7 @@ df %>% group_by(occup, ft_pt) %>%
   # make sure x and y have the same scaling
   coord_fixed() +
   # add the values to the tiles, using row and name as coordinates 
-  geom_text(aes(occup,ft_pt,label=n), color = "black", size = 4) +
+  geom_text(aes(occup,ft_pt,label=n), color = "black", size = 3) +
 theme_minimal() +
        # adjust text direction on x-axis 
        theme(axis.text.x = element_text(angle = 45, vjust = 1,hjust = 1),
