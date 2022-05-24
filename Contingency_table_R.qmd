@@ -49,9 +49,7 @@ First example shows average value of selected numerical variable for categorical
 df %>% group_by(occup, age) %>% 
   summarise(n=round(sum(opinion_ban1)/n(),2)) %>%
   ggplot(aes(x = occup, y = age, fill = n ))  +
-  geom_tile(
-    #aes(sum(df$opinion_ban1)) ,
-    color = "white") +
+  geom_tile(color = "white") +
   scale_fill_gradient2(high = "olivedrab", low = "tomato",
                        mid="lightyellow",midpoint = 0.5,
                        space = "Lab", name="count"
@@ -63,10 +61,9 @@ df %>% group_by(occup, age) %>%
 theme_minimal() +
        # adjust text direction on x-axis 
        theme(axis.text.x = element_text(angle = 45, vjust = 1,hjust = 1),
-             text = element_text(size=15),
-       ) +
+        text = element_text(size=15)) +
        # remove the axis labels by making them blank
-       xlab("Occupation") +ylab("Age") + 
+       xlab("Occupation") + ylab("Age") + 
        guides(fill=guide_legend(title="Average Opinion")) 
 ```
 
