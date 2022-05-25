@@ -4,61 +4,83 @@ library(tidyverse)
 # check here() file path, which should be Contingency_table_R directory
 df <- read_csv(here("data","randomized_survey_data.csv"))
 
-# Plot 1: do contingency table of opinion on the ban (average)
+# Plot 1: do contingency table of opinion on the ban (average) ----
+# do contingency table of opinion on the ban for different age groups and occupations
 df %>% group_by(occup, age) %>% 
   summarise(n=round(sum(opinion_ban1)/n(),2)) %>%
   ggplot(aes(x = occup, y = age, fill = n ))  +
-  geom_tile(
-    #aes(sum(df$opinion_ban1)) ,
-    color = "white") +
+  geom_tile(color = "white") +
   scale_fill_gradient2(high = "olivedrab", low = "tomato",
                        mid="lightyellow",midpoint = 0.5,
                        space = "Lab", name="count"
-                       ,limits=c(0.25,0.75)) +
+                       ,limits=c(0,1)) +
   # make sure x and y have the same scaling
   coord_fixed() +
   # add the values to the tiles, using row and name as coordinates 
-  geom_text(aes(occup,age,label=n), color = "black", size = 2) +
-  # specify theme elements
+  geom_text(aes(occup,age,label=n), color = "black", size = 4) +
   theme_minimal() +
   # adjust text direction on x-axis 
   theme(axis.text.x = element_text(angle = 45, vjust = 1,hjust = 1),
         text = element_text(size=15)) +
   # remove the axis labels by making them blank
-  xlab("") +ylab("") + ggtitle("Views of demographics on the proposed motorbike ban") 
+  xlab("Occupation") + ylab("Age") + 
+  guides(fill=guide_legend(title="Average Opinion")) 
 
-  theme(legend.position="none") #+
-theme(
-  panel.background = element_rect(fill = "transparent"), # bg of the panel
-  plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
-  #    panel.grid.major = element_blank(), # get rid of major grid
-  #     panel.grid.minor = element_blank(), # get rid of minor grid
-  #   legend.background = element_rect(fill = "transparent"), # get rid of legend bg
-  #   legend.box.background = element_rect(fill = "transparent") # get rid of legend panel bg
-)
-
-df %>% group_by(!!sym(input$demo1), !!sym(input$demo2)) %>% 
+# do contingency table of opinion on the ban for trip frequency and purpose
+df %>% group_by(freqmon1, age) %>% 
   summarise(n=round(sum(opinion_ban1)/n(),2)) %>%
-  ggplot(aes(x = !!sym(input$demo1), y = !!sym(input$demo2), fill = n ))  +
-  geom_tile(
-    #aes(sum(df$opinion_ban1)) ,
-    color = "white") +
+  ggplot(aes(x = freqmon1, y = age, fill = n ))  +
+  geom_tile(color = "white") +
   scale_fill_gradient2(high = "olivedrab", low = "tomato",
                        mid="lightyellow",midpoint = 0.5,
                        space = "Lab", name="count"
-                       ,limits=c(0.25,0.75)) +
+                       ,limits=c(0,1)) +
   # make sure x and y have the same scaling
   coord_fixed() +
   # add the values to the tiles, using row and name as coordinates 
-  geom_text(aes(!!sym(input$demo1),!!sym(input$demo2),label=n), color = "black", size = 4) +
-  # specify theme elements
+  geom_text(aes(freqmon1,age,label=n), color = "black", size = 3) +
   theme_minimal() +
   # adjust text direction on x-axis 
   theme(axis.text.x = element_text(angle = 45, vjust = 1,hjust = 1),
         text = element_text(size=15)) +
   # remove the axis labels by making them blank
-  xlab("") +ylab("") + ggtitle("Views of demographics on the proposed motorbike ban")
+  ylab("Age") +xlab("Trip frequency per month") + 
+  guides(fill=guide_legend(title="Average Opinion"))
 
-# Plot 2: Occupation and type of occupation demographic group counts 
+# Plot 2: Occupation and type of occupation demographic group counts ----
+# do contingency table of opinion on the ban for different occupations and types of occupation
+df %>% group_by(occup, ft_pt) %>% 
+  summarise(n=n()) %>%
+  ggplot(aes(x = occup, y = ft_pt, fill = n ))  +
+  geom_tile(color = "white") +
+  scale_fill_viridis_c(alpha=0.7) +
+  # make sure x and y have the same scaling
+  coord_fixed() +
+  # add the values to the tiles, using row and name as coordinates 
+  geom_text(aes(occup,ft_pt,label=n), color = "black", size = 3) +
+  theme_minimal() +
+  # adjust text direction on x-axis 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1,hjust = 1),
+        text = element_text(size=15)) +
+  # remove the axis labels by making them blank
+  xlab("Occupation") + ylab("Type of occupation") + 
+  guides(fill=guide_legend(title="Counts of respondents")) 
 
-# Plot 3: Cumulative sum of values (number of motorbikes) for a given subgroup (occupation,type of occupation)
+# Plot 3: Cumulative sum of values (number of motorbikes) for a given subgroup (occupation,type of occupation) ----
+# do contingency table of total number of motorbikes owned for different occupations and types of occupation
+df %>% group_by(occup, ft_pt) %>% 
+  summarise(n=round(sum(own_motob),1)) %>%
+  ggplot(aes(x = occup, y = ft_pt, fill = n ))  +
+  geom_tile(color = "white") +
+  scale_fill_viridis_c(alpha=0.7) +
+  # make sure x and y have the same scaling
+  coord_fixed() +
+  # add the values to the tiles, using row and name as coordinates 
+  geom_text(aes(occup,ft_pt,label=n), color = "black", size = 3) +
+  theme_minimal() +
+  # adjust text direction on x-axis 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1,hjust = 1),
+        text = element_text(size=15)) +
+  # remove the axis labels by making them blank
+  xlab("Occupation") + ylab("Type of occupation") + 
+  guides(fill=guide_legend(title="Counts of respondents")) 

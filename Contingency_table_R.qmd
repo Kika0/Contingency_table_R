@@ -93,10 +93,6 @@ df %>% group_by(occup, ft_pt) %>%
   ggplot(aes(x = occup, y = ft_pt, fill = n ))  +
   geom_tile(color = "white") +
   scale_fill_viridis_c(alpha=0.7) +
-  # scale_fill_gradient2(high = "olivedrab", low = "tomato",
-  #                      mid="lightyellow",midpoint = 0.5,
-  #                      space = "Lab", name="count"
-  #                      ,limits=c(0,1)) +
   # make sure x and y have the same scaling
   coord_fixed() +
   # add the values to the tiles, using row and name as coordinates 
@@ -121,10 +117,6 @@ df %>% group_by(occup, ft_pt) %>%
   ggplot(aes(x = occup, y = ft_pt, fill = n ))  +
   geom_tile(color = "white") +
   scale_fill_viridis_c(alpha=0.7) +
-  # scale_fill_gradient2(high = "olivedrab", low = "tomato",
-  #                      mid="lightyellow",midpoint = 0.5,
-  #                      space = "Lab", name="count"
-  #                      ,limits=c(0,1)) +
   # make sure x and y have the same scaling
   coord_fixed() +
   # add the values to the tiles, using row and name as coordinates 
