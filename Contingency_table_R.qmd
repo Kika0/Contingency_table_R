@@ -25,22 +25,23 @@ library(tidyverse)
 # load data
 # Data cleaning function
 #check here() file path, which should be Contingency_table_R directory
-source(here("clean_data_anon.R"))
-source(here("wrangledata_functions.R"))
-# load data
-# df<- read_csv(here("..","data-not-synced","anon_survey1.csv")) %>% 
-# new data
-df<- read_csv(here("anon_survey1.csv")) %>% 
-  # Clean data
-  data_clean() %>% 
-  # add col for numeric opinion on the ban and create ordered factors 
-  #for age and number of veh owned
-  ban_numeric()
+# source(here("clean_data_anon.R"))
+# source(here("wrangledata_functions.R"))
+# # load data
+# # df<- read_csv(here("..","data-not-synced","anon_survey1.csv")) %>% 
+# # new data
+# df<- read_csv(here("anon_survey1.csv")) %>% 
+#   # Clean data
+#   data_clean() %>% 
+#   # add col for numeric opinion on the ban and create ordered factors 
+#   #for age and number of veh owned
+#   ban_numeric()
+df <- read_csv(here("data","randomized_survey_data.csv"))
 ```
 
 ## Plot 1: Average opinion on the ban
 
-First example shows average value of selected numerical variable for categorical variables on x and y-axis. The opinion on the motorbike ban was recoded so that "strongagree"="1", "agree"="0.75", "neutral"="0.5", "disagree"="0.25" and "strongdisagree"="0".
+First example shows average value of selected numerical variable for categorical variables on x and y-axis. The opinion on the motorbike ban was recoded so that "strongagree"=1, "agree"=0.75, "neutral"=0.5, "disagree"=0.25 and "strongdisagree"=0.
 
 ```{r}
 # do contingency table of opinion on the ban for different age groups and occupations
