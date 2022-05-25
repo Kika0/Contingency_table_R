@@ -1,23 +1,8 @@
 library(here)
 library(tidyverse)
 # load data
-library(tidyverse)
-# Data cleaning function
-library(here)
-#check here() file path, which should be Contingency_table_R directory
-source(here("clean_data_anon.R"))
-source(here("wrangledata_functions.R"))
-# load data
-# df<- read_csv(here("..","data-not-synced","anon_survey1.csv")) %>% 
-# new data
-df<- read_csv(here("anon_survey1.csv")) %>% 
-  # Clean data
-  data_clean() %>% 
-  # add col for numeric opinion on the ban and create ordered factors 
-  #for age and number of veh owned
-  ban_numeric()
-#check column names
-names(df)
+# check here() file path, which should be Contingency_table_R directory
+df <- read_csv(here("data","randomized_survey_data.csv"))
 
 # Plot 1: do contingency table of opinion on the ban (average)
 df %>% group_by(occup, age) %>% 

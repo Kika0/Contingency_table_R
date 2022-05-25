@@ -167,7 +167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>The above table shows average opinion of given tile subgroup.</p>
 <section id="another-example-of-average-opinion" class="level3"><h3 class="anchored" data-anchor-id="another-example-of-average-opinion">Another example of average opinion</h3>
-<p>We could examine the trip frequency and purpose of the trip and their link to average opinion:</p>
+<p>We could examine the average opinion of subgroups of different trip frequency and purpose of the trip recorded in the survey.</p>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># do contingency table of opinion on the ban for trip frequency and purpose</span>
 <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">freqmon1</span>, <span class="va">age</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -195,7 +195,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section></section><section id="plot-2-occupation-and-type-of-occupation-demographic-group-counts" class="level2"><h2 class="anchored" data-anchor-id="plot-2-occupation-and-type-of-occupation-demographic-group-counts">Plot 2: Occupation and type of occupation demographic group counts</h2>
 <div class="cell">
-<details><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># do contingency table of opinion on the ban for different age groups and occupations</span>
+<details><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># do contingency table of opinion on the ban for different occupations and types of occupation</span>
 <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">occup</span>, <span class="va">ft_pt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">occup</span>, y <span class="op">=</span> <span class="va">ft_pt</span>, fill <span class="op">=</span> <span class="va">n</span> <span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
@@ -221,9 +221,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section><section id="plot-3-cumulative-sum-of-values-number-of-motorbikes-for-a-given-subgroup-occupationtype-of-occupation" class="level2"><h2 class="anchored" data-anchor-id="plot-3-cumulative-sum-of-values-number-of-motorbikes-for-a-given-subgroup-occupationtype-of-occupation">Plot 3: Cumulative sum of values (number of motorbikes) for a given subgroup (occupation,type of occupation)</h2>
-<p>The household survey contains a question about number of motorbikes owned ranging from 0 to 5. The below plot sums these value for each demographic group.</p>
+<p>The household survey contains a question about the number of motorbikes owned ranging from 0 to 5. The below plot sums these value for each demographic group.</p>
 <div class="cell">
-<details><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># do contingency table of opinion on the ban for different age groups and occupations</span>
+<details><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># do contingency table of total number of motorbikes owned for different occupations and types of occupation</span>
 <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">occup</span>, <span class="va">ft_pt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">own_motob</span><span class="op">)</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">occup</span>, y <span class="op">=</span> <span class="va">ft_pt</span>, fill <span class="op">=</span> <span class="va">n</span> <span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
@@ -440,7 +440,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### Another example of average opinion</span></span>
 <span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>We could examine the trip frequency and purpose of the trip and their link to average opinion:</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>We could examine the average opinion of subgroups of different trip frequency and purpose of the trip recorded in the survey.</span>
 <span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="co"># do contingency table of opinion on the ban for trip frequency and purpose</span></span>
@@ -469,7 +469,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Plot 2: Occupation and type of occupation demographic group counts</span></span>
 <span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="co"># do contingency table of opinion on the ban for different age groups and occupations</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="co"># do contingency table of opinion on the ban for different occupations and types of occupation</span></span>
 <span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(occup, ft_pt) <span class="sc">%&gt;%</span> </span>
 <span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occup, <span class="at">y =</span> ft_pt, <span class="at">fill =</span> n ))  <span class="sc">+</span></span>
@@ -494,10 +494,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## Plot 3: Cumulative sum of values (number of motorbikes) for a given subgroup (occupation,type of occupation)</span></span>
 <span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a>The household survey contains a question about number of motorbikes owned ranging from 0 to 5. The below plot sums these value for each demographic group.</span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a>The household survey contains a question about the number of motorbikes owned ranging from 0 to 5. The below plot sums these value for each demographic group.</span>
 <span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a><span class="co"># do contingency table of opinion on the ban for different age groups and occupations</span></span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a><span class="co"># do contingency table of total number of motorbikes owned for different occupations and types of occupation</span></span>
 <span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(occup, ft_pt) <span class="sc">%&gt;%</span> </span>
 <span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">round</span>(<span class="fu">sum</span>(own_motob),<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> occup, <span class="at">y =</span> ft_pt, <span class="at">fill =</span> n ))  <span class="sc">+</span></span>

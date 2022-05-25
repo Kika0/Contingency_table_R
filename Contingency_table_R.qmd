@@ -58,7 +58,7 @@ The above table shows average opinion of given tile subgroup.
 
 ### Another example of average opinion
 
-We could examine the trip frequency and purpose of the trip and their link to average opinion:
+We could examine the average opinion of subgroups of different trip frequency and purpose of the trip recorded in the survey.
 
 ```{r}
 # do contingency table of opinion on the ban for trip frequency and purpose
@@ -87,7 +87,7 @@ theme_minimal() +
 ## Plot 2: Occupation and type of occupation demographic group counts
 
 ```{r}
-# do contingency table of opinion on the ban for different age groups and occupations
+# do contingency table of opinion on the ban for different occupations and types of occupation
 df %>% group_by(occup, ft_pt) %>% 
   summarise(n=n()) %>%
   ggplot(aes(x = occup, y = ft_pt, fill = n ))  +
@@ -112,10 +112,10 @@ theme_minimal() +
 
 ## Plot 3: Cumulative sum of values (number of motorbikes) for a given subgroup (occupation,type of occupation)
 
-The household survey contains a question about number of motorbikes owned ranging from 0 to 5. The below plot sums these value for each demographic group.
+The household survey contains a question about the number of motorbikes owned ranging from 0 to 5. The below plot sums these value for each demographic group.
 
 ```{r}
-# do contingency table of opinion on the ban for different age groups and occupations
+# do contingency table of total number of motorbikes owned for different occupations and types of occupation
 df %>% group_by(occup, ft_pt) %>% 
   summarise(n=round(sum(own_motob),1)) %>%
   ggplot(aes(x = occup, y = ft_pt, fill = n ))  +
